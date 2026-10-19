@@ -1,0 +1,42 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#0A101C" />
+    <!--meta-->
+    <!--/meta-->
+
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <link rel="apple-touch-icon" href="/favicon.svg" />
+    <link rel="manifest" href="/manifest.webmanifest" />
+    <link rel="preload" href="/fonts/instrumentserif-normal-latin.woff2" as="font" type="font/woff2" crossorigin />
+    <link rel="preload" href="/fonts/inter-latin.woff2" as="font" type="font/woff2" crossorigin />
+
+    <!--jsonld-->
+    <script>
+      // Theme before first paint: the saved choice, else dark.
+      try {
+        var t = localStorage.getItem('theme');
+        if (t !== 'light' && t !== 'dark') t = 'dark';
+        document.documentElement.setAttribute('data-theme', t);
+        if (t === 'light') document.querySelector('meta[name="theme-color"]').setAttribute('content', '#E9EDF3');
+      } catch (e) {}
+    </script>
+    <!--redirect-->
+    <script>
+      // First visit from a Slovak or Czech browser goes to the Slovak page; a stored choice wins.
+      try {
+        if (!localStorage.getItem('lang') && /^(sk|cs)/i.test(navigator.language || '') && location.pathname === '/') {
+          location.replace('/sk/' + location.search + location.hash);
+        }
+      } catch (e) {}
+    </script>
+    <!--/redirect-->
+    <noscript><style>.reveal, .hero-line, pre code span { opacity: 1 !important; filter: none !important; transform: none !important; animation: none !important; }</style></noscript>
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/src/main.jsx"></script>
+  </body>
+</html>

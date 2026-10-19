@@ -1,0 +1,130 @@
+@font-face { font-family: 'Inter'; font-weight: 400 600; font-display: swap; src: url(/fonts/inter-latin.woff2) format('woff2'); unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+20AC, U+2122, U+2212, U+FEFF, U+FFFD; }
+@font-face { font-family: 'Inter'; font-weight: 400 600; font-display: swap; src: url(/fonts/inter-latin-ext.woff2) format('woff2'); unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+1E00-1E9F, U+20A0-20AB, U+20AD-20C0, U+2C60-2C7F, U+A720-A7FF; }
+@font-face { font-family: 'Instrument Serif'; font-style: normal; font-weight: 400; font-display: swap; src: url(/fonts/instrumentserif-normal-latin.woff2) format('woff2'); unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+2000-206F, U+20AC, U+2122, U+FEFF; }
+@font-face { font-family: 'Instrument Serif'; font-style: normal; font-weight: 400; font-display: swap; src: url(/fonts/instrumentserif-normal-latin-ext.woff2) format('woff2'); unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+1E00-1E9F, U+2C60-2C7F, U+A720-A7FF; }
+@font-face { font-family: 'JetBrains Mono'; font-weight: 400 500; font-display: swap; src: url(/fonts/jetbrainsmono-latin.woff2) format('woff2'); }
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  /* Dark is the default; .dark-surface keeps code windows dark inside the light theme. */
+  :root, .dark-surface {
+    --ink: 15 22 38;
+    --deep: 10 16 28;
+    --fog: 217 224 232;
+    --slate: 163 176 196;
+    --line: 34 48 71;
+    --strong: 255 255 255;
+    --tint: 255 255 255;
+    --sodium: 242 179 61;
+    --ok: 110 231 183;
+    --err: 252 165 165;
+    --shadow: 0 0 0;
+    color-scheme: dark;
+  }
+  [data-theme='light'] {
+    --ink: 244 246 249;
+    --deep: 233 237 243;
+    --fog: 30 41 59;
+    --slate: 84 99 122;
+    --line: 205 213 225;
+    --strong: 10 16 28;
+    --tint: 10 16 28;
+    --sodium: 140 88 0;
+    --ok: 4 120 87;
+    --err: 185 28 28;
+    --shadow: 148 163 184;
+    color-scheme: light;
+  }
+  [data-theme='light'] .dark-surface {
+    --ink: 15 22 38;
+    --deep: 10 16 28;
+    --fog: 217 224 232;
+    --slate: 163 176 196;
+    --line: 34 48 71;
+    --strong: 255 255 255;
+    --tint: 255 255 255;
+    --sodium: 242 179 61;
+    --shadow: 0 0 0;
+    color-scheme: dark;
+  }
+  /* The toggle shows the theme it switches to: sun in dark, moon in light. */
+  .theme-moon { display: none; }
+  [data-theme='light'] .theme-sun { display: none; }
+  [data-theme='light'] .theme-moon { display: block; }
+  html { scroll-behavior: smooth; scroll-padding-top: 6rem; -webkit-text-size-adjust: 100%; }
+  body {
+    @apply bg-ink text-fog font-sans antialiased;
+    font-size: 1.125rem;
+    line-height: 1.7;
+  }
+  ::selection { background: #F2B33D; color: #0A101C; }
+  :focus-visible { outline: 2px solid rgb(var(--sodium)); outline-offset: 3px; border-radius: 4px; }
+}
+
+@layer components {
+  .page { @apply mx-auto w-full max-w-page px-4 sm:px-8; }
+  .display { @apply font-serif font-normal leading-[1.02] tracking-[-0.005em]; }
+
+  /* Amber lamp glow that follows the pointer inside an element (--mx/--my set by useGlow). */
+  .glow { position: relative; isolation: isolate; }
+  .glow::before {
+    content: ''; position: absolute; inset: 0; z-index: -1; border-radius: inherit;
+    background: radial-gradient(22rem circle at var(--mx, 50%) var(--my, 50%), rgba(242, 179, 61, 0.13), transparent 60%);
+    opacity: 0; transition: opacity 0.35s ease;
+  }
+  .glow:hover::before, .glow:focus-within::before { opacity: 1; }
+
+  .btn {
+    @apply inline-flex items-center gap-2 rounded-full px-5 py-3 text-[0.95rem] font-medium transition duration-300;
+  }
+  .btn-lamp {
+    @apply btn bg-lamp text-lampink;
+    box-shadow: 0 0 0 0 rgba(242, 179, 61, 0);
+  }
+  .btn-lamp:hover { box-shadow: 0 0 2.5rem 0.25rem rgba(242, 179, 61, 0.35); transform: translateY(-1px); }
+  .btn-ghost { @apply btn border border-line text-fog hover:border-sodium/60 hover:text-strong; }
+
+  /* Scroll-triggered entrance: blurred and lowered until in view. */
+  .reveal { opacity: 0; filter: blur(12px); transform: translateY(1.5rem); transition: opacity 0.9s ease, filter 0.9s ease, transform 0.9s cubic-bezier(0.2, 0.7, 0.2, 1); }
+  .reveal.is-in { opacity: 1; filter: blur(0); transform: none; }
+
+  .code-tok-k { color: #C792EA; }
+  .code-tok-s { color: #F2B33D; }
+  .code-tok-f { color: #82AAFF; }
+  .code-tok-c { color: #A3B0C4; }
+}
+
+@keyframes unblur {
+  from { opacity: 0; filter: blur(18px); transform: translateY(0.4em); }
+  to { opacity: 1; filter: blur(0); transform: none; }
+}
+.hero-line { opacity: 0; animation: unblur 1.2s cubic-bezier(0.2, 0.7, 0.2, 1) forwards; }
+
+@keyframes caret { 50% { opacity: 0; } }
+.caret { animation: caret 1s steps(1) infinite; }
+
+/* Print: light colours, content only, links spelled out. */
+@media print {
+  :root, [data-theme], .dark-surface {
+    --ink: 255 255 255; --deep: 255 255 255; --fog: 30 41 59; --slate: 71 85 105;
+    --line: 203 213 225; --strong: 0 0 0; --tint: 0 0 0; --sodium: 120 75 0;
+  }
+  body { background: #fff; font-size: 11pt; }
+  header, #chat-panel, button, form, .btn-lamp, .btn-ghost, dialog, .glow::before, [aria-hidden='true'], #top > div[aria-hidden], a[href^='#main'] { display: none !important; }
+  #top { min-height: auto; padding-top: 0; }
+  .reveal, .hero-line, pre code span { opacity: 1 !important; filter: none !important; transform: none !important; animation: none !important; }
+  section, article { break-inside: auto; padding-top: 1.5rem !important; padding-bottom: 1.5rem !important; }
+  h1, h2, h3 { break-after: avoid; }
+  li { break-inside: avoid; }
+  a[href^='http']::after { content: ' (' attr(href) ')'; font-size: 0.85em; color: rgb(var(--slate)); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  .reveal, .reveal.is-in { opacity: 1; filter: none; transform: none; transition: none; }
+  .hero-line { opacity: 1; animation: none; }
+  .caret { animation: none; }
+}
