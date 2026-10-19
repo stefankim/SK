@@ -10,7 +10,7 @@ const BASE = import.meta.env.BASE_URL.replace(/\/$/, '');
 /** Strips the base path from a browser pathname. */
 const fromBase = (path) => (BASE && path.startsWith(BASE) ? path.slice(BASE.length) || '/' : path);
 
-export const langFromPath = (path) => (path.startsWith('/sk') ? 'sk' : 'en');
+export const langFromPath = (path) => (path.startsWith('/en') ? 'en' : 'sk');
 
 /** Path of a page from the site root: the home page, or a case study when caseId is set. */
 export const pathFor = (lang, caseId) => LANG_PATH[lang] + (caseId ? `work/${caseId}/` : '');
@@ -18,7 +18,7 @@ export const pathFor = (lang, caseId) => LANG_PATH[lang] + (caseId ? `work/${cas
 /** Link to a page as the browser needs it, including the base path. */
 export const hrefFor = (lang, caseId) => BASE + pathFor(lang, caseId);
 
-/** Parses /, /sk/, /work/<id>/ and /sk/work/<id>/; any other path is the 404 page. */
+/** Parses /, /en/, /work/<id>/ and /en/work/<id>/; any other path is the 404 page. */
 export function parseRoute(browserPath) {
   const path = fromBase(browserPath);
   const lang = langFromPath(path);

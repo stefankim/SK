@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en">
+<html lang="sk">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -25,10 +25,17 @@
     </script>
     <!--redirect-->
     <script>
-      // First visit from a Slovak or Czech browser goes to the Slovak page; a stored choice wins.
+      // First visit: Slovak or Czech anywhere in the browser's languages stays on Slovak,
+      // everyone else goes to the English page. A stored choice, a link from this site
+      // and crawlers (so search engines index the Slovak page) skip it.
       try {
-        if (!localStorage.getItem('lang') && /^(sk|cs)/i.test(navigator.language || '') && location.pathname === '%BASE_URL%') {
-          location.replace('%BASE_URL%sk/' + location.search + location.hash);
+        var internal = document.referrer.indexOf(location.origin + '/') === 0;
+        var bot = /bot|crawl|spider|slurp|preview/i.test(navigator.userAgent);
+        var langs = navigator.languages && navigator.languages.length ? navigator.languages : [navigator.language || ''];
+        var sk = false;
+        for (var i = 0; i < langs.length; i++) if (/^(sk|cs)\b/i.test(langs[i])) sk = true;
+        if (!localStorage.getItem('lang') && !sk && !internal && !bot && location.pathname === '%BASE_URL%') {
+          location.replace('%BASE_URL%en/' + location.search + location.hash);
         }
       } catch (e) {}
     </script>

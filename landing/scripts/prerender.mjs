@@ -1,5 +1,5 @@
 // Renders every route to static HTML with its own <head>, structured data and route marker:
-//   /, /sk/ (home), /work/<id>/, /sk/work/<id>/ (case studies), /404.html.
+//   /, /en/ (home), /work/<id>/, /en/work/<id>/ (case studies), /404.html.
 // Also writes sitemap.xml, robots.txt, llms.txt / llms-full.txt and the Content-Security-Policy in _headers.
 import { createHash } from 'node:crypto';
 import { mkdirSync, readFileSync, rmSync, writeFileSync } from 'node:fs';
@@ -22,7 +22,7 @@ const services = (c) => [...c.services.pillars, ...c.services.more];
 const ROUTES = [
   ...LANGS.map((lang) => ({ lang, page: 'home', caseId: null })),
   ...LANGS.flatMap((lang) => PROJECTS.map((p) => ({ lang, page: 'case', caseId: p.id }))),
-  { lang: 'en', page: '404', caseId: null },
+  { lang: 'sk', page: '404', caseId: null },
 ];
 const urlOf = (r) => SITE_URL + pathFor(r.lang, r.caseId);
 
@@ -144,7 +144,7 @@ function sitemap() {
     ...LANGS.map((l) => `    <xhtml:link rel="alternate" hreflang="${l}" href="${urlOf({ ...r, lang: l })}" />`),
     `    <xhtml:link rel="alternate" hreflang="x-default" href="${urlOf({ ...r, lang: 'en' })}" />`,
     `    <lastmod>${today}</lastmod>`,
-    `    <priority>${r.page === 'home' ? (r.lang === 'en' ? '1.0' : '0.9') : '0.7'}</priority>`,
+    `    <priority>${r.page === 'home' ? (r.lang === 'sk' ? '1.0' : '0.9') : '0.7'}</priority>`,
     '  </url>',
   ].join('\n'));
   writeFileSync('dist/sitemap.xml', [
@@ -173,8 +173,8 @@ function llms() {
     ...intro,
     '## Pages',
     '',
-    `- [Home (English)](${SITE_URL}/): services, tech stack, portfolio, FAQ and contact`,
-    `- [Home (Slovak)](${SITE_URL}/sk/): the same content in Slovak`,
+    `- [Home (English)](${SITE_URL}/en/): services, tech stack, portfolio, FAQ and contact`,
+    `- [Home (Slovak)](${SITE_URL}/): the same content in Slovak`,
     `- [Full content as markdown](${SITE_URL}/llms-full.txt): everything on the site, including all case studies`,
     '',
     '## Services',
@@ -278,13 +278,13 @@ function csp() {
 
 for (const r of ROUTES) {
   let html = template
-    .replace('<html lang="en">', `<html lang="${r.lang}">`)
+    .replace('<html lang="sk">', `<html lang="${r.lang}">`)
     .replace(/<title>.*?<\/title>\s*/s, '')
     .replace(/<!--meta-->.*?<!--\/meta-->/s, () => head(r))
     .replace('<!--jsonld-->', () => (r.page === '404' ? '' : jsonLd(r)))
     .replace('<div id="root"></div>', () => `<div id="root" data-route='${JSON.stringify(r)}'>${render(r)}</div>`);
-  // Only the English home page redirects by browser language.
-  html = r.page === 'home' && r.lang === 'en'
+  // Only the Slovak home page (the root) redirects by browser language.
+  html = r.page === 'home' && r.lang === 'sk'
     ? html.replace(/\s*<!--\/?redirect-->/g, '')
     : html.replace(/\s*<!--redirect-->.*?<!--\/redirect-->/s, '');
   collectHashes(html);

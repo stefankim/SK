@@ -5,7 +5,7 @@ import { hrefFor, useLang } from '../i18n';
 import CaseStudyBody, { neighbours } from './CaseStudyBody';
 import Contact from './Contact';
 
-/** Stand-alone, pre-rendered case study page at /work/<id>/ and /sk/work/<id>/. */
+/** Stand-alone, pre-rendered case study page at /work/<id>/ and /en/work/<id>/. */
 export default function CaseStudyPage() {
   const { lang, caseId, c } = useLang();
   const go = (id) => { window.location.href = hrefFor(lang, id); };

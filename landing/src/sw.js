@@ -4,7 +4,7 @@
 const CACHE = 'sk-landing-__BUILD_ID__';
 const ASSETS = [
   './',
-  './sk/',
+  './en/',
   './favicon.svg',
   './manifest.webmanifest',
   './fonts/inter-latin.woff2',
