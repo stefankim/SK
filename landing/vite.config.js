@@ -20,5 +20,7 @@ function serviceWorker() {
 }
 
 export default defineConfig({
+  // Served from a sub-folder on github.io (BASE_PATH=/SK/); '/' on a custom domain.
+  base: process.env.BASE_PATH || '/',
   plugins: [react(), serviceWorker()],
 });

@@ -27,8 +27,8 @@
     <script>
       // First visit from a Slovak or Czech browser goes to the Slovak page; a stored choice wins.
       try {
-        if (!localStorage.getItem('lang') && /^(sk|cs)/i.test(navigator.language || '') && location.pathname === '/') {
-          location.replace('/sk/' + location.search + location.hash);
+        if (!localStorage.getItem('lang') && /^(sk|cs)/i.test(navigator.language || '') && location.pathname === '%BASE_URL%') {
+          location.replace('%BASE_URL%sk/' + location.search + location.hash);
         }
       } catch (e) {}
     </script>

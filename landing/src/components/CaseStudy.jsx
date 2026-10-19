@@ -1,7 +1,7 @@
 import { useEffect, useRef } from 'react';
 import { ArrowUpRight, X } from 'lucide-react';
 import { isTyping, useSwipe } from '../hooks';
-import { pathFor, useLang } from '../i18n';
+import { hrefFor, useLang } from '../i18n';
 import CaseStudyBody, { neighbours } from './CaseStudyBody';
 
 /** Quick-view dialog; a native <dialog> gives focus trapping and Esc for free. */
@@ -45,7 +45,7 @@ export default function CaseStudy({ id, onClose, onNavigate }) {
         <div className="relative p-6 sm:p-10">
           <div className="absolute right-4 top-4 flex items-center gap-1 sm:right-6 sm:top-6">
             <a
-              href={pathFor(lang, id)}
+              href={hrefFor(lang, id)}
               className="hidden items-center gap-1.5 rounded-full px-3 py-2 text-sm font-medium text-sodium hover:bg-tint/10 sm:inline-flex"
             >
               {c.caseStudy.full}
@@ -67,7 +67,7 @@ export default function CaseStudy({ id, onClose, onNavigate }) {
               <button key={target} type="button" onClick={() => onNavigate(target)} className={className}>{children}</button>
             )}
           />
-          <a href={pathFor(lang, id)} className="mt-4 inline-flex items-center gap-1.5 text-sm font-medium text-sodium sm:hidden">
+          <a href={hrefFor(lang, id)} className="mt-4 inline-flex items-center gap-1.5 text-sm font-medium text-sodium sm:hidden">
             {c.caseStudy.full}
             <ArrowUpRight size={15} aria-hidden="true" />
           </a>

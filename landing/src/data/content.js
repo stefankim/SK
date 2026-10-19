@@ -1,5 +1,6 @@
 export const EMAIL = 'hello@stefankimak.dev';
-export const SITE_URL = 'https://stefankimak.dev';
+// Public address of the site root, without a trailing slash (VITE_SITE_URL at build time).
+export const SITE_URL = (import.meta.env?.VITE_SITE_URL || 'https://stefankimak.dev').replace(/\/$/, '');
 export const LANGS = ['en', 'sk'];
 export const LANG_PATH = { en: '/', sk: '/sk/' };
 

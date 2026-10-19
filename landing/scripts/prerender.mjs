@@ -1,6 +1,6 @@
 // Renders every route to static HTML with its own <head>, structured data and route marker:
 //   /, /sk/ (home), /work/<id>/, /sk/work/<id>/ (case studies), /404.html.
-// Also writes sitemap.xml, llms.txt / llms-full.txt and the Content-Security-Policy in _headers.
+// Also writes sitemap.xml, robots.txt, llms.txt / llms-full.txt and the Content-Security-Policy in _headers.
 import { createHash } from 'node:crypto';
 import { mkdirSync, readFileSync, rmSync, writeFileSync } from 'node:fs';
 import { loadEnv } from 'vite';
@@ -155,6 +155,7 @@ function sitemap() {
     '',
   ].join('\n'));
   console.log(`wrote sitemap.xml (${pages.length} urls)`);
+  writeFileSync('dist/robots.txt', `User-agent: *\nAllow: /\n\nSitemap: ${SITE_URL}/sitemap.xml\n`);
 }
 
 // Plain-markdown versions of the site for AI assistants (llmstxt.org convention).

@@ -1,9 +1,9 @@
 import { useState } from 'react';
 import { Mail, Menu, Moon, Sun, X } from 'lucide-react';
-import { EMAIL, LANG_PATH } from '../data/content';
+import { EMAIL } from '../data/content';
 import { toggleTheme, useActiveSection, useScrolled } from '../hooks';
 import { track } from '../analytics';
-import { pathFor, useLang } from '../i18n';
+import { hrefFor, useLang } from '../i18n';
 
 export default function Navbar() {
   const { lang, page, caseId, c, switchLang, section } = useLang();
@@ -42,7 +42,7 @@ export default function Navbar() {
 
         <div className="flex items-center gap-2">
           <a
-            href={page === '404' ? LANG_PATH[other] : pathFor(other, caseId)}
+            href={page === '404' ? hrefFor(other) : hrefFor(other, caseId)}
             hrefLang={other}
             lang={other}
             onClick={(e) => {

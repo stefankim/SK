@@ -4,13 +4,23 @@ import { CONTENT, LANG_PATH, PROJECTS } from './data/content';
 
 const LangContext = createContext(null);
 
+// Base path the site is served from, without the trailing slash ('' or '/SK').
+const BASE = import.meta.env.BASE_URL.replace(/\/$/, '');
+
+/** Strips the base path from a browser pathname. */
+const fromBase = (path) => (BASE && path.startsWith(BASE) ? path.slice(BASE.length) || '/' : path);
+
 export const langFromPath = (path) => (path.startsWith('/sk') ? 'sk' : 'en');
 
-/** URL of a page: the home page, or a case study when caseId is set. */
+/** Path of a page from the site root: the home page, or a case study when caseId is set. */
 export const pathFor = (lang, caseId) => LANG_PATH[lang] + (caseId ? `work/${caseId}/` : '');
 
+/** Link to a page as the browser needs it, including the base path. */
+export const hrefFor = (lang, caseId) => BASE + pathFor(lang, caseId);
+
 /** Parses /, /sk/, /work/<id>/ and /sk/work/<id>/; any other path is the 404 page. */
-export function parseRoute(path) {
+export function parseRoute(browserPath) {
+  const path = fromBase(browserPath);
   const lang = langFromPath(path);
   const rest = path.slice(LANG_PATH[lang].length - 1).replace(/\/+$/, '') || '/';
   if (rest === '/' || rest === '/index.html') return { lang, page: 'home', caseId: null };
@@ -35,7 +45,7 @@ export function LangProvider({ initialRoute, children }) {
     try {
       localStorage.setItem('lang', next);
     } catch { /* private mode */ }
-    if (page !== '404') window.history.pushState(null, '', pathFor(next, caseId) + window.location.hash);
+    if (page !== '404') window.history.pushState(null, '', hrefFor(next, caseId) + window.location.hash);
     setRoute((r) => ({ ...r, lang: next }));
   }, [page, caseId]);
 
@@ -57,7 +67,7 @@ export function LangProvider({ initialRoute, children }) {
     caseId,
     c: CONTENT[lang],
     switchLang,
-    section: (hash) => (page === 'home' ? hash : LANG_PATH[lang] + hash),
+    section: (hash) => (page === 'home' ? hash : hrefFor(lang) + hash),
   }), [lang, page, caseId, switchLang]);
   return <LangContext.Provider value={value}>{children}</LangContext.Provider>;
 }

@@ -2,11 +2,11 @@
   "name": "Stefan Kimak — Developer",
   "short_name": "Stefan Kimak",
   "description": "Senior full-stack developer specializing in PHP, Drupal, Symfony, Laravel, Vue.js and AI integrations.",
-  "start_url": "/",
+  "start_url": "./",
   "display": "standalone",
   "background_color": "#0A101C",
   "theme_color": "#0A101C",
   "icons": [
-    { "src": "/favicon.svg", "sizes": "any", "type": "image/svg+xml", "purpose": "any" }
+    { "src": "favicon.svg", "sizes": "any", "type": "image/svg+xml", "purpose": "any" }
   ]
 }

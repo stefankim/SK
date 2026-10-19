@@ -2,7 +2,7 @@ import { useEffect, useRef, useState } from 'react';
 import { ArrowRight, ArrowUp, X } from 'lucide-react';
 import { answerFor } from '../data/chat';
 import { track } from '../analytics';
-import { pathFor, useLang } from '../i18n';
+import { hrefFor, useLang } from '../i18n';
 
 /** The chat panel and its answer engine; loaded on first open (see Chat.jsx). */
 export default function ChatPanel({ open, onClose }) {
@@ -62,7 +62,7 @@ export default function ChatPanel({ open, onClose }) {
   };
 
   const linkFor = (link) => {
-    if (link.caseId) return { href: pathFor(lang, link.caseId), label: c.chat.links.case };
+    if (link.caseId) return { href: hrefFor(lang, link.caseId), label: c.chat.links.case };
     if (link.href) return { href: link.href, label: c.chat.links[link.key] };
     return { href: section(link.hash), label: c.chat.links[link.hash] };
   };
