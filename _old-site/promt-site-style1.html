@@ -1,0 +1,343 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#ffffff">
+<meta name="description" content="Stefan Kimak — senior full-stack developer specializing in PHP, Drupal 7/8/9/10/11, Symfony, Laravel, Vue.js and AI integrations.">
+<title>Stefan Kimak — PHP, Drupal, Vue.js &amp; AI Developer</title>
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>💻</text></svg>">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap">
+<style>
+:root{
+  --bg:#ffffff; --soft:#f7f7f8; --text:#18181b; --muted:#71717a; --line:#ececef;
+  --brand:#4f46e5; --brand-dark:#3730a3; --brand-tint:#eef0ff;
+}
+*,*::before,*::after{box-sizing:border-box}
+html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--bg);color:var(--text);font:400 16px/1.7 'Inter',system-ui,sans-serif;letter-spacing:-.006em;-webkit-font-smoothing:antialiased}
+h1,h2,h3,p,ul,ol,dl,dd{margin:0}
+ul,ol{padding:0;list-style:none}
+a{color:inherit;text-decoration:none}
+[hidden]{display:none!important}
+:focus-visible{outline:2px solid var(--brand);outline-offset:3px;border-radius:4px}
+.wrap{max-width:760px;margin:0 auto;padding:0 24px}
+
+/* header */
+header{position:sticky;top:0;z-index:10;background:rgba(255,255,255,.88);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px)}
+.bar{display:flex;align-items:center;justify-content:space-between;height:64px;border-bottom:1px solid var(--line)}
+.brand{font-weight:600;font-size:15px}
+.brand span{color:var(--muted);font-weight:400}
+nav ul{display:flex;gap:22px;font-size:14px;color:var(--muted)}
+nav a:hover{color:var(--text)}
+
+/* hero */
+.hero{padding:112px 0 80px}
+.who{display:flex;align-items:center;gap:14px;margin-bottom:40px}
+.avatar{width:48px;height:48px;border-radius:50%;background:var(--brand);color:#fff;display:grid;place-items:center;font-weight:600;font-size:16px}
+.who p{font-size:14px;line-height:1.4}
+.who small{display:block;color:var(--muted);font-size:14px}
+.status{display:inline-flex;align-items:center;gap:8px;font-size:13px;color:var(--muted);margin-left:auto}
+.status::before{content:"";width:7px;height:7px;border-radius:50%;background:#22c55e;box-shadow:0 0 0 3px rgba(34,197,94,.18)}
+.hero h1{font-size:clamp(2.1rem,5.2vw,3.25rem);line-height:1.12;font-weight:600;letter-spacing:-.035em}
+.hero h1 em{font-style:normal;color:var(--brand)}
+.hero .lede{margin-top:22px;font-size:18px;color:var(--muted);max-width:620px}
+.links{display:flex;flex-wrap:wrap;gap:12px;margin-top:32px}
+.btn{display:inline-flex;align-items:center;gap:6px;font:500 14.5px/1 'Inter',sans-serif;padding:12px 18px;border-radius:8px;border:1px solid var(--line);background:var(--bg);color:var(--text);cursor:pointer;transition:background .2s,border-color .2s}
+.btn:hover{border-color:#d4d4d8}
+.btn.primary{background:var(--text);border-color:var(--text);color:#fff}
+.btn.primary:hover{background:var(--brand);border-color:var(--brand)}
+.figures{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-top:64px;padding-top:28px;border-top:1px solid var(--line)}
+.figures dd{font-size:24px;font-weight:600;letter-spacing:-.03em;line-height:1.2}
+.figures dt{font-size:13px;color:var(--muted)}
+.figures div{display:flex;flex-direction:column-reverse}
+
+/* section rows */
+.row{display:grid;grid-template-columns:150px 1fr;gap:32px;padding:72px 0;border-top:1px solid var(--line)}
+.label{font-size:13px;font-weight:500;color:var(--muted);position:sticky;top:96px;align-self:start}
+.label b{display:block;color:var(--brand);font-weight:500;font-variant-numeric:tabular-nums}
+.row h2{font-size:24px;font-weight:600;letter-spacing:-.025em;line-height:1.3;margin-bottom:16px}
+.row .intro{color:var(--muted);margin-bottom:32px}
+.prose p+p{margin-top:14px}
+.prose p{color:#3f3f46}
+.dash{margin-top:28px;display:grid;gap:8px}
+.dash li{padding-left:22px;position:relative}
+.dash li::before{content:"–";position:absolute;left:0;color:var(--brand)}
+.facts{margin-top:32px;display:grid;grid-template-columns:1fr 1fr;gap:12px 24px;padding:20px;background:var(--soft);border-radius:12px;font-size:14px}
+.facts dt{color:var(--muted);font-size:12.5px}
+
+/* lists */
+.list>li{padding:18px 0;border-bottom:1px solid var(--line)}
+.list>li:first-child{border-top:1px solid var(--line)}
+.item-head{display:flex;justify-content:space-between;align-items:baseline;gap:16px}
+.item-head h3{font-size:16px;font-weight:600;letter-spacing:-.015em}
+.list p{color:var(--muted);font-size:15px;margin-top:4px}
+.tags{display:flex;gap:6px;flex-shrink:0}
+.tags li{font-size:12px;color:var(--brand-dark);background:var(--brand-tint);padding:2px 8px;border-radius:5px}
+.meta{font-size:13px;color:var(--muted);flex-shrink:0}
+.filters{display:flex;flex-wrap:wrap;gap:4px 18px;margin-bottom:18px;font-size:14px}
+.filters button{background:none;border:0;padding:4px 0;font:inherit;color:var(--muted);cursor:pointer;border-bottom:1.5px solid transparent}
+.filters button:hover{color:var(--text)}
+.filters button[aria-pressed="true"]{color:var(--text);border-color:var(--brand)}
+.services{display:grid;grid-template-columns:1fr 1fr;gap:28px 32px}
+.services span{font-size:12.5px;color:var(--brand);font-variant-numeric:tabular-nums}
+.services h3{font-size:16px;font-weight:600;margin:2px 0 4px}
+.services p{color:var(--muted);font-size:15px}
+
+/* contact */
+.mail{display:flex;align-items:center;gap:12px;flex-wrap:wrap;font-size:clamp(1.25rem,3.2vw,1.6rem);font-weight:600;letter-spacing:-.025em}
+.mail a{border-bottom:2px solid var(--brand-tint)}
+.mail a:hover{border-color:var(--brand)}
+.copy{font:500 12.5px 'Inter',sans-serif;border:1px solid var(--line);background:var(--bg);border-radius:6px;padding:4px 10px;cursor:pointer;color:var(--muted)}
+.socials{display:flex;flex-wrap:wrap;gap:8px 20px;margin-top:16px;font-size:14.5px;color:var(--muted)}
+.socials a:hover{color:var(--brand)}
+form{margin-top:40px;display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.field{display:grid;gap:6px}
+.field.full{grid-column:1/-1}
+label{font-size:13px;font-weight:500}
+input,select,textarea{width:100%;font:inherit;font-size:15px;color:var(--text);background:var(--soft);border:1px solid transparent;border-radius:8px;padding:11px 13px}
+input:focus,select:focus,textarea:focus{outline:none;border-color:var(--brand);background:#fff;box-shadow:0 0 0 3px var(--brand-tint)}
+textarea{resize:vertical;min-height:120px}
+form .btn{justify-self:start}
+
+footer{border-top:1px solid var(--line);padding:28px 0 40px;font-size:13.5px;color:var(--muted)}
+footer .wrap{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap}
+
+@media (max-width:768px){
+  nav ul{gap:16px}
+  .row{grid-template-columns:1fr;gap:16px;padding:56px 0}
+  .label{position:static;display:flex;gap:8px}
+  .figures{grid-template-columns:repeat(2,1fr);row-gap:24px}
+}
+@media (max-width:600px){
+  .wrap{padding:0 16px}
+  nav{display:none}
+  .hero{padding:72px 0 56px}
+  .status{display:none}
+  .services,form,.facts{grid-template-columns:1fr}
+  .item-head{flex-direction:column;gap:6px}
+}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="wrap bar">
+    <a class="brand" href="#top">Stefan Kimak <span>/ developer</span></a>
+    <nav aria-label="Primary">
+      <ul>
+        <li><a href="#about">About</a></li>
+        <li><a href="#stack">Stack</a></li>
+        <li><a href="#work">Portfolio</a></li>
+        <li><a href="#writing">Blog</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ul>
+    </nav>
+  </div>
+</header>
+
+<main id="top">
+  <section class="hero">
+    <div class="wrap">
+      <div class="who hero-anim">
+        <div class="avatar" aria-hidden="true">SK</div>
+        <p>Stefan Kimak<small>Senior Full-Stack &amp; AI Engineer</small></p>
+        <span class="status">Available for new projects</span>
+      </div>
+      <h1 class="hero-anim">Crafting intelligent web experiences with <em>PHP, Vue.js &amp; AI.</em></h1>
+      <p class="lede hero-anim">I'm Stefan Kimak — a senior full-stack engineer building scalable platforms with Drupal, Symfony, Laravel, and modern Vue.js frontends, enriched with AI-driven features that make products smarter.</p>
+      <div class="links hero-anim">
+        <a class="btn primary" href="#work">View Portfolio →</a>
+        <a class="btn" href="mailto:hello@stefankimak.dev">✉️ Send an email</a>
+      </div>
+      <dl class="figures" data-stagger>
+        <div><dt>Years Experience</dt><dd>15+</dd></div>
+        <div><dt>Projects Delivered</dt><dd>80+</dd></div>
+        <div><dt>Happy Clients</dt><dd>30+</dd></div>
+        <div><dt>AI Integrations</dt><dd>5+</dd></div>
+      </dl>
+    </div>
+  </section>
+
+  <section id="about" data-section>
+    <div class="wrap row">
+      <p class="label"><b>01</b>About</p>
+      <div>
+        <h2>15 years of shipping production-grade PHP &amp; JavaScript.</h2>
+        <div class="prose">
+          <p>I help startups and enterprises ship robust, maintainable web platforms — from headless Drupal publishing systems and Symfony APIs to Laravel SaaS products and reactive Vue.js interfaces.</p>
+          <p>Lately, I've been integrating LLMs and vector search to give classic apps superpowers.</p>
+        </div>
+        <ul class="dash" data-stagger>
+          <li>Architecting modular, test-driven PHP backends</li>
+          <li>Headless &amp; decoupled Drupal / Symfony / Laravel APIs</li>
+          <li>Vue 3 + Composition API + Pinia + TypeScript SPAs</li>
+          <li>OpenAI, LangChain, RAG pipelines &amp; vector databases</li>
+          <li>DevOps with Docker, CI/CD, AWS &amp; observability</li>
+        </ul>
+        <dl class="facts">
+          <div><dt>Location</dt><dd>📍 Remote · Europe</dd></div>
+          <div><dt>Engagement</dt><dd>💼 Freelance &amp; Contract</dd></div>
+          <div><dt>Languages</dt><dd>🗣️ English · Slovak · Czech</dd></div>
+          <div><dt>Currently</dt><dd>🔗 improve.sk — long-term Drupal contract<br>🔗 previon.ch — Drupal agency</dd></div>
+        </dl>
+      </div>
+    </div>
+  </section>
+
+  <section id="stack" data-section>
+    <div class="wrap row">
+      <p class="label"><b>02</b>Tech Stack</p>
+      <div>
+        <h2>Tools I use every day</h2>
+        <p class="intro">From battle-tested PHP frameworks to cutting-edge AI tooling.</p>
+        <ul class="list" data-stagger>
+          <li><h3>PHP 8.4</h3><p>Modern, typed, attribute-driven PHP. The reliable engine behind every backend I build.</p></li>
+          <li><h3>Drupal 7 / 8 / 9 / 10 / 11</h3><p>Custom modules, headless setups, migrations, multi-site &amp; enterprise content platforms.</p></li>
+          <li><h3>Symfony 7</h3><p>API Platform, Messenger, DDD-flavored architectures &amp; rock-solid REST/GraphQL APIs.</p></li>
+          <li><h3>Laravel 11</h3><p>Eloquent, Livewire, Inertia, queues &amp; rapid SaaS delivery without sacrificing quality.</p></li>
+          <li><h3>Vue.js 3</h3><p>Composition API, Pinia, Nuxt, Vite — beautiful, performant SPAs and dashboards.</p></li>
+          <li><h3>AI &amp; LLMs</h3><p>OpenAI, Anthropic, LangChain, RAG, embeddings, vector DBs, agents &amp; smart automations.</p></li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section id="work" data-section>
+    <div class="wrap row">
+      <p class="label"><b>03</b>Portfolio</p>
+      <div>
+        <h2>Selected work</h2>
+        <p class="intro">A glimpse at recent platforms, products and AI integrations I've shipped.</p>
+        <div class="filters" role="group" aria-label="Filter projects">
+          <button type="button" data-filter="all" aria-pressed="true">All</button>
+          <button type="button" data-filter="drupal" aria-pressed="false">Drupal</button>
+          <button type="button" data-filter="symfony" aria-pressed="false">Symfony</button>
+          <button type="button" data-filter="laravel" aria-pressed="false">Laravel</button>
+          <button type="button" data-filter="vue" aria-pressed="false">Vue.js</button>
+          <button type="button" data-filter="ai" aria-pressed="false">AI</button>
+        </div>
+        <ul class="list" data-stagger>
+          <li data-tags="drupal vue"><div class="item-head"><h3>Association Member Portal</h3><ul class="tags"><li>Drupal</li><li>Vue.js</li></ul></div><p>Self-service member portal with automated dues, invoicing and event registration — 80% less admin.</p></li>
+          <li data-tags="drupal ai"><div class="item-head"><h3>Municipal Submission Portal</h3><ul class="tags"><li>Drupal</li><li>AI</li></ul></div><p>Paper submissions replaced by guided online forms with AI-assisted document parsing and approval workflows.</p></li>
+          <li data-tags="drupal vue"><div class="item-head"><h3>Public Transport Portal</h3><ul class="tags"><li>Drupal</li><li>Vue.js</li></ul></div><p>Mobile-first timetable, stop finder and disruption feed for a city operator serving thousands of riders daily.</p></li>
+          <li data-tags="drupal"><div class="item-head"><h3>Regional Bank Relaunch</h3><ul class="tags"><li>Drupal</li></ul></div><p>Component-driven Drupal platform with a shared design system, central product data and WCAG AA compliance.</p></li>
+          <li data-tags="drupal"><div class="item-head"><h3>Humanitarian Multi-Site Platform</h3><ul class="tags"><li>Drupal</li></ul></div><p>30+ regional chapters consolidated onto one Drupal platform with shared donation and volunteer flows.</p></li>
+          <li data-tags="symfony vue"><div class="item-head"><h3>B2B Ordering Ecosystem</h3><ul class="tags"><li>Symfony</li><li>Vue.js</li></ul></div><p>Symfony + API Platform backend with a Vue 3 ordering front end, contract pricing and bidirectional ERP sync.</p></li>
+          <li data-tags="laravel vue"><div class="item-head"><h3>3D Product Configurator</h3><ul class="tags"><li>Laravel</li><li>Vue.js</li></ul></div><p>Laravel + Vue 3 configurator rendering products live in the browser and turning visits into qualified enquiries.</p></li>
+          <li data-tags="symfony ai"><div class="item-head"><h3>AI Assistant for a Training Institute</h3><ul class="tags"><li>Symfony</li><li>AI</li></ul></div><p>Symfony + pgvector RAG assistant answering staff and learner questions with citations from years of material.</p></li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section id="services" data-section>
+    <div class="wrap row">
+      <p class="label"><b>04</b>Services</p>
+      <div>
+        <h2>How I can help</h2>
+        <div class="services" data-stagger>
+          <div><span>01</span><h3>Backend Architecture</h3><p>Design and build scalable PHP backends with Drupal, Symfony or Laravel — from greenfield to rescue missions.</p></div>
+          <div><span>02</span><h3>Frontend Engineering</h3><p>Modern Vue.js 3 SPAs, Nuxt sites and design-system component libraries with TypeScript.</p></div>
+          <div><span>03</span><h3>AI Integration</h3><p>Add LLMs, RAG, vector search and intelligent automations to your existing product — pragmatically.</p></div>
+          <div><span>04</span><h3>Performance &amp; Audits</h3><p>Code reviews, performance audits, security hardening and observability for legacy PHP apps.</p></div>
+          <div><span>05</span><h3>Team Augmentation</h3><p>Embed with your team as a senior IC — mentoring, pairing and pushing the codebase forward.</p></div>
+          <div><span>06</span><h3>Technical Consulting</h3><p>Architecture reviews, tech-stack decisions and roadmap planning for product &amp; engineering leaders.</p></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="writing" data-section>
+    <div class="wrap row">
+      <p class="label"><b>05</b>Writing</p>
+      <div>
+        <h2>Latest from the blog</h2>
+        <p class="intro">Notes on PHP, Vue and shipping AI features without losing your mind.</p>
+        <ul class="list" data-stagger>
+          <li><div class="item-head"><h3>Building a RAG pipeline in Symfony with pgvector</h3><span class="meta">8 min read · Coming soon</span></div><p>How to combine API Platform, OpenAI embeddings and PostgreSQL's pgvector for production-grade retrieval.</p></li>
+          <li><div class="item-head"><h3>Headless Drupal + Nuxt: a pragmatic setup</h3><span class="meta">6 min read · Coming soon</span></div><p>JSON:API, content previews, image styles and ISR — a battle-tested decoupled architecture.</p></li>
+          <li><div class="item-head"><h3>Vue 3 patterns I actually use in production</h3><span class="meta">5 min read · Coming soon</span></div><p>Composition API, composables, Pinia stores and the structure that keeps large SPAs maintainable.</p></li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section id="contact" data-section>
+    <div class="wrap row">
+      <p class="label"><b>06</b>Contact</p>
+      <div>
+        <h2>Let's build something great.</h2>
+        <p class="intro">Got a project in mind, a legacy app to modernise, or want to add AI to an existing product? Drop a message — I usually reply within a day.</p>
+        <div class="mail"><a href="mailto:hello@stefankimak.dev">hello@stefankimak.dev</a><button class="copy" type="button" data-copy="hello@stefankimak.dev">Copy</button></div>
+        <div class="socials">
+          <a href="https://github.com/stefankimak" rel="noopener">github.com/stefankimak</a>
+          <a href="https://linkedin.com/in/stefankimak" rel="noopener">linkedin.com/in/stefankimak</a>
+          <a href="https://x.com/stefankimak_dev" rel="noopener">@stefankimak_dev</a>
+        </div>
+        <form data-mailto>
+          <div class="field"><label for="n">Name</label><input id="n" name="name" autocomplete="name" required></div>
+          <div class="field"><label for="e">Email</label><input id="e" name="email" type="email" autocomplete="email" required></div>
+          <div class="field full"><label for="t">Project type</label>
+            <select id="t" name="type"><option>Drupal project</option><option>Symfony project</option><option>Laravel project</option><option>Vue.js / Frontend</option><option>AI integration</option><option>Other</option></select></div>
+          <div class="field full"><label for="m">Message</label><textarea id="m" name="message" required></textarea></div>
+          <button class="btn primary" type="submit">Send message →</button>
+        </form>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap"><span>© <span id="year">2026</span> Stefan Kimak. Crafted with PHP, Vue &amp; ☕.</span><a href="#top">Back to top ↑</a></div>
+</footer>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+<script>
+(function () {
+  document.getElementById('year').textContent = new Date().getFullYear();
+
+  var filters = document.querySelectorAll('[data-filter]');
+  var items = document.querySelectorAll('[data-tags]');
+  filters.forEach(function (b) {
+    b.addEventListener('click', function () {
+      var f = b.dataset.filter;
+      filters.forEach(function (x) { x.setAttribute('aria-pressed', String(x === b)); });
+      items.forEach(function (i) { i.hidden = !(f === 'all' || i.dataset.tags.split(' ').indexOf(f) > -1); });
+      if (window.ScrollTrigger) ScrollTrigger.refresh();
+    });
+  });
+
+  document.querySelectorAll('[data-copy]').forEach(function (b) {
+    b.addEventListener('click', function () {
+      if (!navigator.clipboard) return;
+      navigator.clipboard.writeText(b.dataset.copy).then(function () {
+        b.textContent = 'Copied'; setTimeout(function () { b.textContent = 'Copy'; }, 1500);
+      });
+    });
+  });
+
+  var form = document.querySelector('form[data-mailto]');
+  form.addEventListener('submit', function (e) {
+    e.preventDefault();
+    var d = new FormData(form);
+    location.href = 'mailto:hello@stefankimak.dev?subject=' + encodeURIComponent(d.get('type') + ' — ' + d.get('name')) +
+      '&body=' + encodeURIComponent(d.get('message') + '\n\n' + d.get('name') + ' <' + d.get('email') + '>');
+  });
+
+  if (!window.gsap || !window.ScrollTrigger || matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+  gsap.registerPlugin(ScrollTrigger);
+  gsap.from('.hero-anim', { y: 24, opacity: 0, duration: 0.8, ease: 'power2.out', stagger: 0.12 });
+  gsap.utils.toArray('[data-section]').forEach(function (s) {
+    gsap.from(s, { y: 30, opacity: 0, duration: 0.6, ease: 'power2.out', clearProps: 'transform,opacity', scrollTrigger: { trigger: s, start: 'top 85%', once: true } });
+  });
+  gsap.utils.toArray('[data-stagger]').forEach(function (g) {
+    gsap.from(g.children, { y: 30, opacity: 0, duration: 0.6, ease: 'power2.out', stagger: 0.1, clearProps: 'transform,opacity', scrollTrigger: { trigger: g, start: 'top 88%', once: true } });
+  });
+})();
+</script>
+</body>
+</html>

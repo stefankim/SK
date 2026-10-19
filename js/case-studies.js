@@ -1,0 +1,244 @@
+// Case study data — exposed on window.SK (works on file:// and http://).
+// Clients are anonymised by sector; figures are indicative of the engagement.
+// Localised: window.SK.getCaseStudies(lang) returns the set for 'en' or 'sk'.
+(function () {
+  window.SK = window.SK || {};
+
+  const en = {
+    member: {
+      title: 'Association Member Portal',
+      tags: ['Drupal 10', 'Vue 3', 'Payments', 'Events'],
+      role: 'Lead full-stack engineer',
+      duration: '8 months',
+      problem: 'A professional membership association ran its members, dues and conference sign-ups on spreadsheets and email. Every renewal and every event meant weeks of manual administration for a small back-office team.',
+      solution: 'Built a self-service member portal on Drupal with a Vue 3 front end: members manage their own profile and company data, renew online, and register for conferences and seminars. Dues, invoices and reminders are generated automatically; the event module handles ticket types, capacity and attendee lists.',
+      stack: ['Drupal 10 (custom entities, Group, Commerce)', 'Vue 3 member area + Pinia', 'Online payment gateway & automated invoicing', 'Event registration with capacity rules', 'Automated dues, reminders & exports'],
+      metrics: [
+        { value: '−80%', label: 'Admin workload' },
+        { value: '100%', label: 'Renewals online' },
+        { value: '1 day', label: 'Event setup, not weeks' },
+      ],
+    },
+    permits: {
+      title: 'Municipal Submission Portal',
+      tags: ['Drupal 10', 'AI document parsing', 'Workflows'],
+      role: 'Backend & AI engineer',
+      duration: '6 months',
+      problem: 'A municipal utility accepted applications and technical submissions on paper. Every file was re-typed by hand, statuses lived in inboxes, and applicants had no way to see where their case stood.',
+      solution: 'Replaced the paper process with an online submission portal: guided multi-step forms, document upload, and an LLM-based extractor that reads the attached technical documents and pre-fills the form fields for the officer to confirm. Each case runs through a configurable approval workflow with status visible to the applicant.',
+      stack: ['Drupal 10 (Webform, Content Moderation, custom workflow)', 'LLM extraction pipeline for uploaded PDFs', 'Queue workers for async processing', 'Role-based case handling & audit trail', 'Signed PDF output and e-mail notifications'],
+      metrics: [
+        { value: '0', label: 'Paper submissions left' },
+        { value: '~40h', label: 'Saved per month' },
+        { value: '100%', label: 'Cases traceable' },
+      ],
+    },
+    transit: {
+      title: 'Public Transport Portal',
+      tags: ['Drupal 10', 'Vue 3', 'Open data', 'Accessibility'],
+      role: 'Full-stack lead',
+      duration: '7 months',
+      problem: 'A city transport operator served thousands of daily riders through an ageing portal — timetables buried in PDFs, disruption notices posted late, and a site that barely worked on a phone at a stop.',
+      solution: 'Rebuilt the portal mobile-first: timetable and stop search as a Vue 3 app on top of the operator\'s scheduling data, a disruption feed editors can publish in seconds, and a ticketing/fares section restructured around the questions riders actually ask. Accessibility was treated as a requirement, not a checkbox.',
+      stack: ['Drupal 10 editorial back end', 'Vue 3 timetable & stop finder', 'Scheduling / open-data import pipeline', 'Aggressive CDN & cache-tag invalidation', 'WCAG 2.1 AA, tested with screen readers'],
+      metrics: [
+        { value: '1000s', label: 'Daily riders served' },
+        { value: '<2s', label: 'Load on 3G' },
+        { value: 'AA', label: 'WCAG conformance' },
+      ],
+    },
+    bank: {
+      title: 'Regional Bank Relaunch',
+      tags: ['Drupal 10', 'Design system', 'Compliance'],
+      role: 'Architect & lead developer',
+      duration: '10 months',
+      problem: 'A regional bank\'s website had grown over a decade into a tangle of products, PDFs and landing pages. Editors avoided it, campaigns took weeks to publish, and the whole thing sat outside any brand or accessibility standard.',
+      solution: 'Rebuilt the site on Drupal with a component-driven design system: every page is assembled by editors from reviewed, accessible components. Product data (rates, conditions) comes from a single source so a change lands everywhere at once, and each release goes through review with a full audit trail.',
+      stack: ['Drupal 10 + Layout Builder / paragraphs', 'Component library documented in Storybook', 'Centralised product & rate data source', 'Editorial workflow with review and audit log', 'Security hardening, WCAG AA, performance budget'],
+      metrics: [
+        { value: '1 day', label: 'Campaign page, not weeks' },
+        { value: '60+', label: 'Reusable components' },
+        { value: '95+', label: 'Lighthouse score' },
+      ],
+    },
+    aid: {
+      title: 'Humanitarian Multi-Site Platform',
+      tags: ['Drupal 10', 'Multi-site', 'Migration', 'Donations'],
+      role: 'Platform architect',
+      duration: '12 months',
+      problem: 'A national humanitarian organisation had every regional chapter on its own CMS — inconsistent branding, duplicated content, no shared donation flow and no way to roll out a security fix everywhere.',
+      solution: 'Consolidated the chapters onto one Drupal platform: shared code base and design system, per-chapter theming and content ownership, national content pushed down to all sites, and one donation and volunteer-signup flow maintained centrally. Legacy content was migrated automatically with redirects preserved.',
+      stack: ['Drupal 10 multi-site on a shared code base', 'Migrate API from four legacy CMSes', 'Shared design system with per-site theming', 'Central donation & volunteer flows', 'Solr search, GitLab CI, one-click deploys'],
+      metrics: [
+        { value: '30+', label: 'Sites unified' },
+        { value: '120k', label: 'Pages migrated' },
+        { value: '0', label: 'Broken legacy URLs' },
+      ],
+    },
+    b2b: {
+      title: 'B2B Ordering Ecosystem',
+      tags: ['Symfony 7', 'API Platform', 'Vue 3', 'ERP sync'],
+      role: 'Full-stack lead',
+      duration: '10 months',
+      problem: 'A packaging manufacturer coordinated every order by e-mail between four parties — customer, sales, production and logistics. Specifications got lost in threads, and nobody could say what state an order was in.',
+      solution: 'Built one platform all four parties work in: customers reorder from their own contract catalog with customer-specific pricing, sales approve, production sees the queue, logistics confirm dispatch. The ERP stays the system of record, synced bidirectionally through a message queue.',
+      stack: ['Symfony 7 + API Platform', 'Vue 3 + Pinia ordering front end', 'Custom contract-pricing engine', 'Bidirectional ERP sync over RabbitMQ', 'PostgreSQL, Elasticsearch, Docker'],
+      metrics: [
+        { value: '4', label: 'Parties, one workflow' },
+        { value: '3×', label: 'Order throughput' },
+        { value: '−90%', label: 'Order e-mails' },
+      ],
+    },
+    configurator: {
+      title: '3D Product Configurator & Lead Engine',
+      tags: ['Laravel 11', 'Vue 3', 'WebGL', 'SEO'],
+      role: 'Tech lead',
+      duration: '6 months',
+      problem: 'An industrial manufacturer sold configurable products through PDF catalogs and phone calls. Prospects couldn\'t picture what they were buying, and the site generated almost no inbound enquiries.',
+      solution: 'Built a browser-based 3D configurator: customers assemble their product, see it rendered live, get an indicative price and send the exact specification as an enquiry that lands in the sales pipeline pre-qualified. Paired it with a rebuilt, technically clean site and a search strategy targeting the terms buyers actually use.',
+      stack: ['Laravel 11 API + queues', 'Vue 3 + Three.js configurator', 'Rule-based pricing & validity constraints', 'Quote PDF generation and CRM handoff', 'Structured data, Core Web Vitals, SEO/GEO'],
+      metrics: [
+        { value: '5×', label: 'Inbound enquiries' },
+        { value: '100%', label: 'Specs arrive complete' },
+        { value: 'Top 3', label: 'On core search terms' },
+      ],
+    },
+    learning: {
+      title: 'AI Assistant for a Training Institute',
+      tags: ['Symfony 7', 'RAG', 'pgvector', 'OpenAI'],
+      role: 'Backend / AI engineer',
+      duration: '4 months',
+      problem: 'A vocational training institute held years of course material, regulations and internal guidance across a wiki, a file share and hundreds of PDFs. Staff and learners asked the same questions repeatedly because nothing was findable.',
+      solution: 'Built a retrieval-augmented assistant over the whole corpus: documents are chunked and embedded into pgvector, a Symfony API retrieves the relevant passages and asks the model to answer strictly from them — always with a citation back to the source document. Permissions are respected, so nobody retrieves material they can\'t open.',
+      stack: ['Symfony 7 + API Platform', 'OpenAI embeddings + guard-railed prompting', 'PostgreSQL + pgvector hybrid search', 'Messenger workers for incremental indexing', 'Permission-aware retrieval & answer citations'],
+      metrics: [
+        { value: '<1.5s', label: 'Median answer' },
+        { value: '100%', label: 'Answers cited' },
+        { value: '3', label: 'Sources unified' },
+      ],
+    },
+  };
+
+  const sk = {
+    member: {
+      title: 'Členský portál asociácie',
+      tags: ['Drupal 10', 'Vue 3', 'Platby', 'Podujatia'],
+      role: 'Vedúci full-stack vývojár',
+      duration: '8 mesiacov',
+      problem: 'Profesijná asociácia spravovala členov, členské poplatky a prihlášky na konferencie v tabuľkách a e-mailoch. Každé obnovenie členstva a každé podujatie znamenali pre malý back-office tím týždne ručnej administratívy.',
+      solution: 'Postavil som samoobslužný členský portál na Drupale s Vue 3 rozhraním: členovia si spravujú vlastný profil a firemné údaje, obnovujú členstvo online a prihlasujú sa na konferencie a semináre. Poplatky, faktúry a upomienky sa generujú automaticky; modul podujatí rieši typy vstupeniek, kapacity a zoznamy účastníkov.',
+      stack: ['Drupal 10 (vlastné entity, Group, Commerce)', 'Vue 3 členská zóna + Pinia', 'Platobná brána a automatická fakturácia', 'Registrácia na podujatia s kapacitnými pravidlami', 'Automatické poplatky, upomienky a exporty'],
+      metrics: [
+        { value: '−80%', label: 'Administratívy' },
+        { value: '100%', label: 'Obnovení online' },
+        { value: '1 deň', label: 'Príprava podujatia, nie týždne' },
+      ],
+    },
+    permits: {
+      title: 'Portál na podávanie žiadostí',
+      tags: ['Drupal 10', 'AI spracovanie dokumentov', 'Workflow'],
+      role: 'Backend a AI vývojár',
+      duration: '6 mesiacov',
+      problem: 'Mestská organizácia prijímala žiadosti a technické podania na papieri. Každý spis sa prepisoval ručne, stavy žili v e-mailových schránkach a žiadateľ nemal ako zistiť, kde sa jeho vec nachádza.',
+      solution: 'Papierový proces nahradil online portál: sprievodné viackrokové formuláre, nahrávanie dokumentov a LLM extraktor, ktorý prečíta priložené technické dokumenty a predvyplní polia formulára na potvrdenie pracovníkom. Každý spis prechádza konfigurovateľným schvaľovacím workflow so stavom viditeľným pre žiadateľa.',
+      stack: ['Drupal 10 (Webform, Content Moderation, vlastný workflow)', 'LLM extrakcia z nahraných PDF', 'Fronty na asynchrónne spracovanie', 'Spracovanie spisov podľa rolí a audit log', 'Podpísané PDF výstupy a e-mailové notifikácie'],
+      metrics: [
+        { value: '0', label: 'Papierových podaní' },
+        { value: '~40h', label: 'Ušetrených mesačne' },
+        { value: '100%', label: 'Spisov dohľadateľných' },
+      ],
+    },
+    transit: {
+      title: 'Portál mestskej dopravy',
+      tags: ['Drupal 10', 'Vue 3', 'Otvorené dáta', 'Prístupnosť'],
+      role: 'Full-stack vedúci',
+      duration: '7 mesiacov',
+      problem: 'Mestský dopravca obsluhoval tisíce cestujúcich denne cez zastaraný portál — cestovné poriadky schované v PDF, výluky zverejňované neskoro a web, ktorý na mobile na zastávke sotva fungoval.',
+      solution: 'Portál som prestaval mobile-first: vyhľadávanie spojov a zastávok ako Vue 3 aplikácia nad dátami dopravcu, kanál výluk, ktorý editori zverejnia v priebehu sekúnd, a sekcia cestovného prestavaná podľa otázok, ktoré cestujúci naozaj kladú. Prístupnosť bola požiadavka, nie odškrtnutá položka.',
+      stack: ['Drupal 10 redakčný backend', 'Vue 3 vyhľadávanie spojov a zastávok', 'Import cestovných poriadkov / otvorených dát', 'Agresívne CDN a invalidácia cache tagov', 'WCAG 2.1 AA, testované s čítačkami obrazovky'],
+      metrics: [
+        { value: 'tisíce', label: 'Cestujúcich denne' },
+        { value: '<2s', label: 'Načítanie na 3G' },
+        { value: 'AA', label: 'Zhoda s WCAG' },
+      ],
+    },
+    bank: {
+      title: 'Relaunch regionálnej banky',
+      tags: ['Drupal 10', 'Dizajn systém', 'Compliance'],
+      role: 'Architekt a vedúci vývojár',
+      duration: '10 mesiacov',
+      problem: 'Web regionálnej banky za desaťročie narástol do spleti produktov, PDF a landing pages. Editori sa mu vyhýbali, kampane trvali týždne a celok nespĺňal žiadny brandový ani prístupnostný štandard.',
+      solution: 'Web som postavil nanovo na Drupale s komponentovým dizajn systémom: každú stránku si editori poskladajú zo schválených, prístupných komponentov. Produktové dáta (sadzby, podmienky) pochádzajú z jedného zdroja, takže zmena sa prejaví všade naraz, a každé vydanie prechádza schvaľovaním s úplným audit logom.',
+      stack: ['Drupal 10 + Layout Builder / paragraphs', 'Knižnica komponentov zdokumentovaná v Storybooku', 'Centrálny zdroj produktových dát a sadzieb', 'Redakčný workflow so schvaľovaním a audit logom', 'Bezpečnostné hardening, WCAG AA, performance budget'],
+      metrics: [
+        { value: '1 deň', label: 'Kampaňová stránka, nie týždne' },
+        { value: '60+', label: 'Znovupoužiteľných komponentov' },
+        { value: '95+', label: 'Lighthouse skóre' },
+      ],
+    },
+    aid: {
+      title: 'Multi-site platforma humanitárnej organizácie',
+      tags: ['Drupal 10', 'Multi-site', 'Migrácia', 'Dary'],
+      role: 'Architekt platformy',
+      duration: '12 mesiacov',
+      problem: 'Národná humanitárna organizácia mala každú regionálnu pobočku na vlastnom CMS — nekonzistentný branding, duplicitný obsah, žiadny spoločný darovací proces a žiadny spôsob, ako všade nasadiť bezpečnostnú opravu.',
+      solution: 'Pobočky som zjednotil na jednu Drupal platformu: spoločný kód a dizajn systém, vlastné témy a obsah pre každú pobočku, celoštátny obsah distribuovaný na všetky weby a jeden centrálne spravovaný proces darov a registrácie dobrovoľníkov. Starý obsah sa zmigroval automaticky so zachovaním presmerovaní.',
+      stack: ['Drupal 10 multi-site nad spoločným kódom', 'Migrate API zo štyroch starých CMS', 'Spoločný dizajn systém s témou pre každý web', 'Centrálne darovacie a dobrovoľnícke formuláre', 'Solr vyhľadávanie, GitLab CI, nasadenie jedným klikom'],
+      metrics: [
+        { value: '30+', label: 'Zjednotených webov' },
+        { value: '120k', label: 'Zmigrovaných stránok' },
+        { value: '0', label: 'Nefunkčných starých URL' },
+      ],
+    },
+    b2b: {
+      title: 'B2B objednávkový ekosystém',
+      tags: ['Symfony 7', 'API Platform', 'Vue 3', 'ERP synchronizácia'],
+      role: 'Full-stack vedúci',
+      duration: '10 mesiacov',
+      problem: 'Výrobca obalov koordinoval každú objednávku e-mailom medzi štyrmi stranami — zákazník, obchod, výroba a logistika. Špecifikácie sa strácali vo vláknach a nikto nevedel povedať, v akom stave objednávka je.',
+      solution: 'Postavil som jednu platformu, v ktorej pracujú všetky štyri strany: zákazníci objednávajú zo svojho zmluvného katalógu s vlastnými cenami, obchod schvaľuje, výroba vidí frontu, logistika potvrdzuje expedíciu. ERP zostáva zdrojom pravdy a synchronizuje sa obojsmerne cez message queue.',
+      stack: ['Symfony 7 + API Platform', 'Vue 3 + Pinia objednávkové rozhranie', 'Vlastný engine zmluvných cien', 'Obojsmerná ERP synchronizácia cez RabbitMQ', 'PostgreSQL, Elasticsearch, Docker'],
+      metrics: [
+        { value: '4', label: 'Strany, jeden workflow' },
+        { value: '3×', label: 'Priepustnosť objednávok' },
+        { value: '−90%', label: 'E-mailov o objednávkach' },
+      ],
+    },
+    configurator: {
+      title: '3D konfigurátor produktov',
+      tags: ['Laravel 11', 'Vue 3', 'WebGL', 'SEO'],
+      role: 'Technický vedúci',
+      duration: '6 mesiacov',
+      problem: 'Priemyselný výrobca predával konfigurovateľné produkty cez PDF katalógy a telefonáty. Záujemcovia si nevedeli predstaviť, čo kupujú, a web generoval takmer žiadne dopyty.',
+      solution: 'Postavil som 3D konfigurátor v prehliadači: zákazník si produkt poskladá, vidí ho vykreslený naživo, dostane orientačnú cenu a odošle presnú špecifikáciu ako dopyt, ktorý príde do obchodu už kvalifikovaný. K tomu prestavaný, technicky čistý web a vyhľadávacia stratégia mierená na výrazy, ktoré kupujúci naozaj používajú.',
+      stack: ['Laravel 11 API + fronty', 'Vue 3 + Three.js konfigurátor', 'Pravidlové ceny a kontrola platných kombinácií', 'Generovanie cenovej ponuky v PDF a odovzdanie do CRM', 'Štruktúrované dáta, Core Web Vitals, SEO/GEO'],
+      metrics: [
+        { value: '5×', label: 'Prichádzajúcich dopytov' },
+        { value: '100%', label: 'Špecifikácií kompletných' },
+        { value: 'Top 3', label: 'Na kľúčových výrazoch' },
+      ],
+    },
+    learning: {
+      title: 'AI asistent pre vzdelávaciu inštitúciu',
+      tags: ['Symfony 7', 'RAG', 'pgvector', 'OpenAI'],
+      role: 'Backend / AI vývojár',
+      duration: '4 mesiace',
+      problem: 'Vzdelávacia inštitúcia mala roky študijných materiálov, predpisov a interných pokynov rozsypaných vo wiki, na zdieľanom disku a v stovkách PDF. Zamestnanci aj študenti sa dokola pýtali to isté, lebo sa nedalo nič nájsť.',
+      solution: 'Postavil som RAG asistenta nad celým korpusom: dokumenty sa delia na časti a ukladajú ako embeddingy do pgvectora, Symfony API vyberie relevantné pasáže a model odpovedá výhradne z nich — vždy s citáciou na zdrojový dokument. Oprávnenia sú rešpektované, takže nikto nedostane materiál, ktorý nesmie otvoriť.',
+      stack: ['Symfony 7 + API Platform', 'OpenAI embeddingy + strážené prompty', 'PostgreSQL + pgvector hybridné vyhľadávanie', 'Messenger workery na priebežnú indexáciu', 'Vyhľadávanie podľa oprávnení a citácie v odpovediach'],
+      metrics: [
+        { value: '<1,5s', label: 'Medián odpovede' },
+        { value: '100%', label: 'Odpovedí s citáciou' },
+        { value: '3', label: 'Zjednotené zdroje' },
+      ],
+    },
+  };
+
+  const byLang = { en, sk };
+  window.SK.caseStudiesByLang = byLang;
+  window.SK.getCaseStudies = function getCaseStudies(lang) {
+    return byLang[lang] || en;
+  };
+  // Back-compat: default (English) set.
+  window.SK.caseStudies = en;
+})();

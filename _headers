@@ -1,0 +1,32 @@
+# Security headers for Netlify / Cloudflare Pages.
+# frame-ancestors and HSTS only work as real response headers — a <meta> CSP ignores them.
+/*
+  Content-Security-Policy: frame-ancestors 'none'
+  X-Content-Type-Options: nosniff
+  Referrer-Policy: strict-origin-when-cross-origin
+  Permissions-Policy: geolocation=(), microphone=(), camera=(), interest-cohort=()
+  Strict-Transport-Security: max-age=31536000; includeSubDomains
+
+/sw.js
+  Cache-Control: public, max-age=0, must-revalidate
+
+/styles.css
+  Cache-Control: public, max-age=604800
+
+/script.js
+  Cache-Control: public, max-age=604800
+
+/theme-init.js
+  Cache-Control: public, max-age=604800
+
+/js/*
+  Cache-Control: public, max-age=604800
+
+/og-image.png
+  Cache-Control: public, max-age=2592000
+
+/fonts/*
+  Cache-Control: public, max-age=31536000, immutable
+
+/fonts.css
+  Cache-Control: public, max-age=604800
